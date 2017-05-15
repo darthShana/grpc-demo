@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package com.darthshana.dto;
+
+option java_multiple_files = true;
+
+message Vector {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}
+
+message CharacterMessage {
+    bytes id = 1;
+    map<string, string> objectives = 2;
+    repeated string units = 3;
+    string commander = 4;
+    Vector posstion = 5;
+    Vector orientation = 6;
+}
+
+message MessageRequest {
+    CharacterMessage characterMessage = 1;
+}
+
+message MessageResponse {
+    CharacterMessage characterMessage = 1;
+}
+
+service CharacterService {
+    rpc UpdateCharacter(MessageRequest) returns (MessageResponse);
+    rpc UpdateCharacterStream(stream MessageRequest) returns (stream MessageResponse);
+
+}
